@@ -4,10 +4,23 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const EmailSenderController = async (req, res) => {
-  const { name, surname, email, phone, message, recipient } = req.body; // Incluye el destinatario
+  const { restaurantName, address, name, surname, email, phone, message, recipient } = req.body;
 
-  if (!name || !surname || !email || !phone || !message || !recipient) { // Verifica que el destinatario esté presente
+  // Verifica que los campos básicos y el destinatario estén presentes
+  if (!email || !phone || !message || !recipient) {
     return res.status(400).send({ message: 'Todos los campos son obligatorios' });
+  }
+
+  // Define el contenido del email dependiendo del formulario seleccionado
+  let emailContent = '';
+  if (restaurantName && address) {
+    // Caso de "Contacto directo con comercial"
+    emailContent = `Nombre del Restaurante: ${restaurantName}\nDirección: ${address}\nEmail: ${email}\nTeléfono: ${phone}\nMensaje: ${message}`;
+  } else if (name && surname) {
+    // Caso de "Contacto directo con trabajadora social"
+    emailContent = `Nombre: ${name} ${surname}\nEmail: ${email}\nTeléfono: ${phone}\nMensaje: ${message}`;
+  } else {
+    return res.status(400).send({ message: 'Datos insuficientes para enviar el correo' });
   }
 
   let transporter = nodemailer.createTransport({
@@ -20,9 +33,9 @@ export const EmailSenderController = async (req, res) => {
 
   let mailOptions = {
     from: email,
-    to: recipient, // Usa el destinatario correcto
+    to: recipient,
     subject: 'PROYECTO RESTAURANTES SOLIDARIOS',
-    text: `Nombre: ${name} ${surname}\nEmail: ${email}\nTeléfono: ${phone}\nMensaje: ${message}`,
+    text: emailContent,
   };
 
   try {

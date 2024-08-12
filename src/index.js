@@ -15,7 +15,10 @@ const corsOptions = {
         'https://restaurantessolidarios.com', 
         'https://www.restaurantessolidarios.com',
         'https://restaurantessolidarios.org', 
-        'https://www.restaurantessolidarios.org'
+        'https://www.restaurantessolidarios.org',
+        'http://restaurantessolidarios.com',
+        'http://restaurantessolidarios.es',
+        'http://restaurantessolidarios.org'
     ],
     optionsSuccessStatus: 200
 };
