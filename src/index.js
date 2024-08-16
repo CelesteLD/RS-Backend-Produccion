@@ -18,7 +18,8 @@ const corsOptions = {
         'https://www.restaurantessolidarios.org',
         'http://restaurantessolidarios.com',
         'http://restaurantessolidarios.es',
-        'http://restaurantessolidarios.org'
+        'http://restaurantessolidarios.org',
+        'http://192.168.1.138:8081'
     ],
     optionsSuccessStatus: 200
 };

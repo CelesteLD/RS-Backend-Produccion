@@ -35,7 +35,7 @@ import { GetRecogidasHoyController } from '../RegistrosRecogida/Controllers/GetR
 import { EmailSenderController } from '../Emails/Controllers/EmailSenderController.js';
 import { EmailSenderByAppController } from '../Emails/Controllers/EmailSenderByAppController.js';
 import { EmailSenderIncidentUserController } from '../Emails/Controllers/EmailSenderIncidentUserController.js';
-
+import { EmailSenderCredentialsController } from '../Emails/Controllers/EmailSenderCredentialsController.js'
 
 // NOTICIAS
 import { GetAllNoticiasController } from '../Noticia/Controllers/GetAllNoticiasController.js';
@@ -86,6 +86,7 @@ import { GetLastUserAddedController } from '../Usuarios/Controllers/GetLastUserA
 import { checkUserController } from '../Usuarios/Controllers/CheckUserController.js';
 import { ChangeActiveUserController } from '../Usuarios/Controllers/ChangeActiveUserController.js';
 import { EditUserController } from '../Usuarios/Controllers/EditUserController.js';
+import { GetUserByIDController } from '../Usuarios/Controllers/GetUserByIDController.js'
 
 // RUTAS DE IMAGENES DE USUARIOS
 import { UploadUsuarioImageController } from '../UsuariosImage/Controllers/UploadUsuarioImageController.js';
@@ -151,6 +152,8 @@ router.post('/api/email/send', EmailSenderController);
 router.post('/api/email/sendByApp', TokenMiddleware, EmailSenderByAppController);
 // POST to send an email by the app
 router.post('/api/email/incidentUser', EmailSenderIncidentUserController);
+// POST to send the credentials to restaurant   
+router.post('/api/email/send/credentials', TokenMiddleware, EmailSenderCredentialsController);
 
 // GET all noticias
 router.get('/api/noticias/all', GetAllNoticiasController);
@@ -226,6 +229,8 @@ router.post('/api/usuario/check', checkUserController);
 router.put('/api/usuario/active/:id', TokenMiddleware, ChangeActiveUserController);
 // PUT to update a user
 router.put('/api/usuario/:id', TokenMiddleware, EditUserController);
+// GET to take info of user
+router.get('/api/usuario/:id', TokenMiddleware, GetUserByIDController);
 
 
 // Subir la imagen de la publicidad al controlador
